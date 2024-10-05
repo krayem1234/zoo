@@ -60,18 +60,38 @@
     }
 }
 */
-class Zoo {
+package tn.esprit.gestionzoo.entities;
+public class Zoo {
     private final int nbrCages = 25; // Capacité maximale de 25 cages (constante)
     private Animal[] animals;
-    private String name;
+    private String name;              // Ne doit pas être vide
     private String city;
     private int nbrAnimaux = 0; // Compteur pour suivre le nombre d'animaux ajoutés
 
     // Constructeur paramétré
     public Zoo(String name, String city) {
-        this.name = name;
+        setName(name);  // Utiliser le setter pour appliquer la validation
         this.city = city;
         this.animals = new Animal[nbrCages];  // Initialisation du tableau des animaux
+    }
+
+    // Setter pour le nom
+    public void setName(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Le nom du zoo ne doit pas être vide");
+        }
+        this.name = name;
+    }
+    public int searchAnimal(Animal animal)
+    {
+        for (int i = 0; i < nbrAnimaux; i++) {
+            if (animals[i].name == animal.name) {
+                return i;
+
+            }
+
+        }
+        return -1;
     }
 
     // Vérifie si un animal existe déjà dans le zoo (par nom)
@@ -84,20 +104,19 @@ class Zoo {
         return false;
     }
 
-    // Méthode pour ajouter un animal, avec vérification des doublons
+    // Méthode pour ajouter un animal, avec vérification des doublons et si le zoo est plein
     public boolean addAnimal(Animal animal) {
         if (animalExists(animal)) {
             System.out.println("Cet animal existe déjà dans le zoo.");
             return false;
         }
-        if (nbrAnimaux < nbrCages) {
-            animals[nbrAnimaux] = animal;
-            nbrAnimaux++; // Incrémenter le compteur après ajout
-            return true;   // Retourne true si l'ajout est réussi
-        } else {
+        if (isZooFull()) {
             System.out.println("Le zoo est plein.");
             return false;  // Retourne false si le zoo est plein
         }
+        animals[nbrAnimaux] = animal;
+        nbrAnimaux++; // Incrémenter le compteur après ajout
+        return true;   // Retourne true si l'ajout est réussi
     }
 
     // Méthode pour supprimer un animal
@@ -116,24 +135,9 @@ class Zoo {
         return true;
     }
 
-    // Méthode pour rechercher un animal
-    public int searchAnimal(Animal animal) {
-        for (int i = 0; i < nbrAnimaux; i++) {
-            if (animals[i].name.equals(animal.name)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     // Vérifie si le zoo est plein
     public boolean isZooFull() {
         return nbrAnimaux >= nbrCages;
-    }
-
-    // Compare deux zoos et retourne celui qui contient le plus d'animaux
-    public static Zoo comparerZoo(Zoo z1, Zoo z2) {
-        return z1.nbrAnimaux > z2.nbrAnimaux ? z1 : z2;
     }
 
     // Méthode pour afficher les informations du zoo
@@ -159,6 +163,7 @@ class Zoo {
         return "Zoo [name=" + name + ", city=" + city + ", nbrCages=" + nbrCages + "]";
     }
 }
+
 
 
 

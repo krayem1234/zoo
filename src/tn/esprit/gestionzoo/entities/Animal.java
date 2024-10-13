@@ -6,6 +6,13 @@ public class Animal {
     public int age;          // âge ne peut pas être négatif
     public boolean isMammal;
 
+
+    public Animal() {
+        this.family = "Inconnue";
+        this.name = "Inconnu";
+        this.age = 0;
+        this.isMammal = false;
+    }
     // Constructeur paramétré
     public Animal(String family, String name, int age, boolean isMammal) {
         this.family = family;

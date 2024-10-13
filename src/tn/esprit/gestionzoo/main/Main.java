@@ -43,7 +43,7 @@
     /*}
 }
 */
-
+/*
 package tn.esprit.gestionzoo.main;
 import tn.esprit.gestionzoo.entities.Animal;
 import tn.esprit.gestionzoo.entities.Zoo;
@@ -95,6 +95,80 @@ public class Main {
         System.out.println("Le zoo est plein ? " + myZoo.isZooFull()); // true
 
         // Affichage final du zoo
+        myZoo.displayZoo();
+    }
+}
+/*
+
+ */
+package tn.esprit.gestionzoo.main;
+
+import tn.esprit.gestionzoo.entities.Animal;
+import tn.esprit.gestionzoo.entities.Aquatic;
+import tn.esprit.gestionzoo.entities.Dolphin;
+import tn.esprit.gestionzoo.entities.Penguin;
+import tn.esprit.gestionzoo.entities.Zoo;
+
+public class Main {
+    public static void main(String[] args) {
+        // Création d'instances avec les constructeurs par défaut
+        Animal genericAnimal = new Animal();  // Animal générique
+        Aquatic genericAquatic = new Aquatic();  // Aquatique générique
+        Dolphin genericDolphin = new Dolphin();  // Dauphin générique
+        Penguin genericPenguin = new Penguin();  // Pingouin générique
+
+        // Affichage des instances créées avec les constructeurs par défaut
+        System.out.println(genericAnimal);
+        System.out.println(genericAquatic);
+        System.out.println(genericDolphin);
+        System.out.println(genericPenguin);
+
+        // Création d'un zoo
+        Zoo myZoo = new Zoo("My Zoo", "Tunis");
+
+        // Création d'animaux avec les constructeurs paramétrés
+        Dolphin dolphin = new Dolphin("Cetacea", "Dolly", 5, true, "Ocean", 60.5f);
+        Penguin penguin = new Penguin("Spheniscidae", "Pingu", 3, true, "Antarctic", 20.0f);
+
+        // Ajout d'animaux au zoo
+        System.out.println("Ajout du dauphin : " + myZoo.addAnimal(dolphin)); // true
+        System.out.println("Ajout du pingouin : " + myZoo.addAnimal(penguin)); // true
+
+        // Tentative d'ajouter un animal déjà présent
+        System.out.println("Tentative d'ajouter à nouveau le dauphin : " + myZoo.addAnimal(dolphin)); // false
+
+        // Appel des méthodes swim()
+        dolphin.swim();
+        penguin.swim();
+
+        // Affichage des animaux dans le zoo
+        System.out.println("Animaux dans le zoo :");
+        myZoo.displayAnimals();
+
+        // Suppression de l'animal "dolphin"
+        System.out.println("Suppression du dauphin : " + myZoo.removeAnimal(dolphin)); // true
+
+        // Affichage après suppression
+        System.out.println("Animaux dans le zoo après suppression du dauphin :");
+        myZoo.displayAnimals();
+
+        // Ajout d'animaux supplémentaires jusqu'à remplir le zoo
+        for (int j = 0; j < 22; j++) {
+            Animal animal = new Animal("Espèce" + j, "Animal" + j, j + 1, true);
+            boolean added = myZoo.addAnimal(animal);
+            System.out.println("Ajout de " + animal.name + ": " + added);
+        }
+
+        // Tentative d'ajouter un animal supplémentaire après avoir rempli le zoo
+        Animal extraAnimal = new Animal("Oiseau", "Poule", 7, true);
+        boolean added = myZoo.addAnimal(extraAnimal);  // false, zoo plein
+        System.out.println("Ajout de poule (extra) : " + added);
+
+        // Vérification si le zoo est plein
+        System.out.println("Le zoo est plein ? " + myZoo.isZooFull()); // true
+
+        // Affichage final du zoo
+        System.out.println("État final du zoo :");
         myZoo.displayZoo();
     }
 }

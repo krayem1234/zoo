@@ -1,28 +1,40 @@
 package tn.esprit.gestionzoo.entities;
 
-public class Aquatic extends Animal {
-    protected String habitat;  // Attribut spécifique pour l'habitat
+public abstract class Aquatic extends Animal {
+    protected String habitat;
 
     // Constructeur par défaut
     public Aquatic() {
-        super();  // Appel du constructeur de Animal
-        this.habitat = "Inconnu";  // Par défaut, l'habitat est inconnu
+        super();
+        this.habitat = "Inconnu";
     }
 
     // Constructeur paramétré
     public Aquatic(String family, String name, int age, boolean isMammal, String habitat) {
-        super(family, name, age, isMammal);  // Appel du constructeur paramétré de Animal
+        super(family, name, age, isMammal);
         this.habitat = habitat;
     }
 
-    // Redéfinition de toString pour inclure les attributs spécifiques de Aquatic
+    // Méthode swim() abstraite pour forcer la redéfinition dans les classes filles
+    public abstract void swim();
+
+    // Redéfinition de la méthode equals
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Aquatic aquatic = (Aquatic) obj;
+        return age == aquatic.age && habitat.equals(aquatic.habitat) && name.equals(aquatic.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode() + age + habitat.hashCode();
+    }
+
     @Override
     public String toString() {
         return "Aquatic [family=" + family + ", name=" + name + ", age=" + age + ", habitat=" + habitat + "]";
     }
-
-    // Méthode swim()
-    public void swim() {
-        System.out.println("This aquatic animal is swimming.");
-    }
 }
+

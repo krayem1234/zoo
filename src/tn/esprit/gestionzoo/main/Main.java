@@ -106,7 +106,9 @@ package tn.esprit.gestionzoo.main;
 import tn.esprit.gestionzoo.entities.Animal;
 import tn.esprit.gestionzoo.entities.Dolphin;
 import tn.esprit.gestionzoo.entities.Penguin;
+import tn.esprit.gestionzoo.entities.Terrestrial;
 import tn.esprit.gestionzoo.entities.Zoo;
+import tn.esprit.gestionzoo.entities.Food;
 
 public class Main {
     public static void main(String[] args) {
@@ -114,11 +116,13 @@ public class Main {
         Animal genericAnimal = new Animal();  // Animal générique
         Dolphin genericDolphin = new Dolphin();  // Dauphin générique
         Penguin genericPenguin = new Penguin();  // Pingouin générique
+        Terrestrial genericTerrestrial = new Terrestrial(); // Terrestre générique
 
         // Affichage des instances créées avec les constructeurs par défaut
         System.out.println(genericAnimal);
         System.out.println(genericDolphin);
         System.out.println(genericPenguin);
+        System.out.println(genericTerrestrial);
 
         // Création d'un zoo
         Zoo myZoo = new Zoo("My Zoo", "Tunis");
@@ -143,6 +147,13 @@ public class Main {
         // Calcul et affichage de la profondeur maximale de nage des pingouins
         float maxDepth = myZoo.maxPenguinSwimmingDepth();
         System.out.println("Profondeur maximale de nage des pingouins : " + maxDepth + " m");
+
+        // Test des méthodes d'alimentation pour Terrestrial
+        Terrestrial bear = new Terrestrial("Mammifère", "Bear", 7, true, 4);
+        System.out.println("\nTest des méthodes d'alimentation pour Terrestrial (Bear) :");
+        bear.eatMeat(Food.MEAT);
+        bear.eatPlant(Food.PLANT);
+        bear.eatPlantAndMeat(Food.BOTH);
 
         // Ajout d'animaux au zoo jusqu'à atteindre la capacité maximale
         for (int j = 0; j < 22; j++) {
